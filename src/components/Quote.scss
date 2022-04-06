@@ -1,0 +1,16 @@
+@import "@/global.scss";
+
+.quote {
+  font-family: "PT-Serif", serif;
+  font-size: 1.2rem;
+  border: 2px solid $stroke;
+  background-color: white;
+  padding: 1.5rem 1rem 1rem 1rem;
+  border-radius: 0.5rem;
+  position: relative;
+}
+
+.quote .quote-img {
+  position: absolute;
+  top: -10%;
+}

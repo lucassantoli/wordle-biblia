@@ -1,0 +1,21 @@
+@import "@/global.scss";
+
+header {
+  font-family: "PT Serif", serif;
+  font-weight: bold;
+  font-size: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: $primary;
+  margin-top: 2rem;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  color: $primary;
+  border: 2px solid $primary;
+  border-radius: 0.25rem;
+  padding: 0.125rem;
+}

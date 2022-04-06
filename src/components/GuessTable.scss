@@ -1,0 +1,34 @@
+@import "@/global.scss";
+
+.guess-table {
+  border: 2px solid $secondary;
+  border-radius: 0.5rem;
+}
+
+.guess-table .header-guess,
+.guess-table .individual-guess,
+.guess-table .field-guess {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+}
+
+.guess-table .header-column {
+  font-family: "PT-Sans", sans-serif;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  background-color: $secondary;
+}
+
+.guess-table .column {
+  border: 2px solid $secondary;
+  font-family: "PT-Sans", sans-serif;
+  padding: 0.5rem 1rem;
+}
+
+.guess-table .column fieldset {
+  border: none;
+}
+
+.guess-table .field-guess .proximity {
+  background-color: $disabled;
+}
