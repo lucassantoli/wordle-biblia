@@ -1,12 +1,10 @@
 <template>
   <div class="guess-table">
     <div class="header-guess">
-      <div class="header-column book">Livro</div>
-      <div class="header-column chapter">Capítulo</div>
-      <div class="header-column verse">Versículo</div>
+      <div class="header-column book">Referência</div>
       <div class="header-column proximity">Proximidade</div>
     </div>
-    <div
+    <!-- <div
       class="individual-guess"
       v-for="(guess, index) in guesses"
       :key="index"
@@ -42,13 +40,11 @@
         hide-details
       ></v-select>
       <div class="column proximity">&nbsp;</div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-import { books } from "@/data/bible.js";
-
 export default {
   name: "GuessTable",
 
@@ -56,10 +52,6 @@ export default {
     guesses: Array,
     correct: Object,
   },
-
-  data: () => ({
-    books,
-  }),
 
   computed: {
     countAlreadyGuessed: function () {
@@ -71,10 +63,6 @@ export default {
   methods: {
     checkIfEmpty(obj) {
       return Object.keys(obj).length > 0;
-    },
-
-    generateNumbers(n) {
-      return [...Array(n).keys()];
     },
   },
 };

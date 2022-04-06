@@ -1,0 +1,22 @@
+@import "@/global.scss";
+
+.my-option {
+  background-color: $secondary;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.my-option i {
+  color: $primary;
+}
+
+.my-option.selected {
+  background-color: $primary;
+  color: white;
+}
+
+.my-option.selected i {
+  color: white !important;
+}

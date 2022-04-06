@@ -3,13 +3,14 @@
 .guess-table {
   border: 2px solid $secondary;
   border-radius: 0.5rem;
+  color: $primary;
 }
 
 .guess-table .header-guess,
 .guess-table .individual-guess,
 .guess-table .field-guess {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
 }
 
 .guess-table .header-column {
@@ -17,16 +18,14 @@
   font-weight: bold;
   padding: 0.5rem 1rem;
   background-color: $secondary;
+  color: $primary;
 }
 
 .guess-table .column {
   border: 2px solid $secondary;
   font-family: "PT-Sans", sans-serif;
   padding: 0.5rem 1rem;
-}
-
-.guess-table .column fieldset {
-  border: none;
+  color: primary;
 }
 
 .guess-table .field-guess .proximity {
