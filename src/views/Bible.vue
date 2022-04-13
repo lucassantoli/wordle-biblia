@@ -14,8 +14,9 @@ import Quote from "@/components/Quote";
 import Guess from "@/components/Guess";
 
 import { bible, dayVerse } from "@/data/bible.js";
-
 import { findVerse, shuffle } from "@/utils/bible.js";
+
+var seedrandom = require("seedrandom");
 
 export default {
   name: "Home",
@@ -23,6 +24,7 @@ export default {
 
   data: () => ({
     bible,
+    seedrandom,
     dayVerse,
     index: null,
     verse: null,
@@ -34,17 +36,17 @@ export default {
       (new Date() - this.$initialDate) / (1000 * 3600 * 24)
     );
 
+    let rng = seedrandom(index);
+
     this.index = this.dayVerse[index];
-
     this.verse = findVerse(this.index, this.bible, true);
-
     let options = [this.verse];
 
     let iterations = 0;
     while (options.length < 5 && iterations++ < 31104) {
-      let randomIndex = Math.floor(Math.random() * 31104 + 1);
+      let randomIndex = Math.floor(rng() * 31104 + 1);
       let option = findVerse(randomIndex, this.bible, false);
-      console.log(option);
+
       let existsInOptions =
         options.find((verse) => verse.index == option.index) == undefined;
       if (existsInOptions) {
@@ -52,7 +54,7 @@ export default {
       }
     }
 
-    this.options = shuffle(options);
+    this.options = shuffle(options, rng);
   },
 };
 </script>

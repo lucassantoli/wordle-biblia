@@ -1,7 +1,7 @@
 <template>
   <header>
     <span>Versooo</span>
-    <div class="icon">
+    <div class="icon" v-if="false">
       <v-icon color="primary">mdi-help</v-icon>
     </div>
   </header>

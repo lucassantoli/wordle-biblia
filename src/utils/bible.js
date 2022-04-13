@@ -2,12 +2,12 @@ const capitalize = (str) => {
   return str.charAt(0).toUpperCase() + str.substring(1);
 };
 
-export const shuffle = (array) => {
+export const shuffle = (array, rng) => {
   let currentIndex = array.length,
     randomIndex;
 
   while (currentIndex != 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
+    randomIndex = Math.floor(rng() * currentIndex);
     currentIndex--;
 
     [array[currentIndex], array[randomIndex]] = [
