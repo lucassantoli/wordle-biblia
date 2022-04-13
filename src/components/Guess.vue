@@ -11,9 +11,17 @@
         :key="index"
         :option="option"
         @click="handleSelect"
+        :disabled="hasGuessed"
       ></my-option>
 
-      <main-button class="button-guess">Adivinhar</main-button>
+      <main-button
+        class="button-guess"
+        :color="getColorButton"
+        @click="handleGuess"
+        :result="result"
+      >
+        {{ getContentButton }}
+      </main-button>
     </div>
 
     <!-- Modelo 2 -->
@@ -60,12 +68,12 @@
       </div>
 
       <main-button class="button-guess">Adivinhar</main-button>
-    </div> -->
+    </div>-->
   </div>
 </template>
 
 <script>
-import { books } from "@/data/bible.js";
+// import { books } from "@/data/bible.js";
 
 //import GuessTable from "@/components/GuessTable";
 import MainButton from "@/components/MainButton";
@@ -81,16 +89,15 @@ export default {
   },
 
   data: () => ({
-    books,
+    // books,
+    hasGuessed: false,
+    result: null,
     guesses: [{}, {}, {}, {}, {}],
-    options: [
-      { ref: "Eclesiastes 7:8", selected: false },
-      { ref: "Romanos 2:23", selected: false },
-      { ref: "Lucas 21:34", selected: false },
-      { ref: "Provérbios 3:23", selected: false },
-      { ref: "1 Reis 4:22", selected: false },
-    ],
   }),
+
+  props: {
+    options: Array,
+  },
 
   methods: {
     generateNumbers(n) {
@@ -105,6 +112,36 @@ export default {
           option.selected = false;
         }
       });
+    },
+
+    handleGuess() {
+      let option = this.options.find((op) => op.selected);
+      if (option != undefined) {
+        this.hasGuessed = true;
+        this.result = option.isCorrect;
+      }
+    },
+  },
+
+  computed: {
+    getColorButton: function () {
+      if (this.result == null) {
+        return "primary";
+      } else if (this.result == true) {
+        return "success";
+      } else {
+        return "error";
+      }
+    },
+
+    getContentButton: function () {
+      if (this.result == null) {
+        return "ADIVINHAR";
+      } else if (this.result == true) {
+        return "CORRETO";
+      } else {
+        return "ERRADO";
+      }
     },
   },
 };

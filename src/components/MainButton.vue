@@ -1,5 +1,5 @@
 <template>
-  <v-btn elevation="0" color="primary" class="main-button">
+  <v-btn elevation="0" :color="color" class="main-button" @click="handleClick">
     <slot></slot>
   </v-btn>
 </template>
@@ -7,6 +7,16 @@
 <script>
 export default {
   name: "MainButton",
+
+  props: {
+    color: String,
+  },
+
+  methods: {
+    handleClick: function (event) {
+      this.$emit("click", event);
+    },
+  },
 };
 </script>
 

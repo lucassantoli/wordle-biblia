@@ -1,7 +1,8 @@
 @import "@/global.scss";
 
 .main-button {
+  min-height: 50px;
   width: 100%;
   font-family: "PT-Sans", sans-serif;
-  font-weight: bold;
+  font-weight: bold !important;
 }

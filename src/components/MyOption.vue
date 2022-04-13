@@ -1,6 +1,10 @@
 <template>
   <div
-    :class="['my-option', option.selected && 'selected']"
+    :class="[
+      'my-option',
+      option.selected && 'selected',
+      disabled && 'disabled',
+    ]"
     @click="handleClick"
   >
     <v-icon>mdi-text</v-icon>
@@ -14,11 +18,14 @@ export default {
 
   props: {
     option: Object,
+    disabled: Boolean,
   },
 
   methods: {
     handleClick: function () {
-      this.$emit("click", this.option);
+      if (!this.disabled) {
+        this.$emit("click", this.option);
+      }
     },
   },
 };

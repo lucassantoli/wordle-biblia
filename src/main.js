@@ -5,8 +5,14 @@ import router from "./router";
 
 Vue.config.productionTip = false;
 
-new Vue({
-  vuetify,
-  router,
-  render: (h) => h(App),
-}).$mount("#app");
+fetch(process.env.BASE_URL + "config.json")
+  .then((res) => res.json())
+  .then((config) => {
+    Vue.prototype.$initialDate = new Date(config.initialDate);
+
+    new Vue({
+      vuetify,
+      router,
+      render: (h) => h(App),
+    }).$mount("#app");
+  });

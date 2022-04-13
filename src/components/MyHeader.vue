@@ -1,6 +1,6 @@
 <template>
   <header>
-    <span>Bíblia</span>
+    <span>Versooo</span>
     <div class="icon">
       <v-icon color="primary">mdi-help</v-icon>
     </div>

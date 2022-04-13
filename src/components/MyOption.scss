@@ -6,17 +6,30 @@
   border-radius: 0.5rem;
   display: flex;
   gap: 1rem;
+  cursor: pointer;
 }
 
 .my-option i {
   color: $primary;
 }
 
-.my-option.selected {
+.my-option.selected,
+.my-option.selected.disabled {
   background-color: $primary;
   color: white;
 }
 
-.my-option.selected i {
+.my-option.selected i,
+.my-option.selected.disabled i {
   color: white !important;
+}
+
+.my-option.disabled {
+  background-color: $disabled;
+  color: $textDisabled;
+  cursor: inherit;
+}
+
+.my-option.disabled i {
+  color: $textDisabled;
 }
