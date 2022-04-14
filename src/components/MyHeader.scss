@@ -6,16 +6,21 @@ header {
   font-size: 2rem;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   color: $primary;
   margin-top: 2rem;
 }
 
-.icon {
+header .icon {
   display: flex;
   align-items: center;
   color: $primary;
   border: 2px solid $primary;
   border-radius: 0.25rem;
   padding: 0.125rem;
+}
+
+header .switch {
+  margin-top: 0;
+  display: flex;
+  align-items: center;
 }

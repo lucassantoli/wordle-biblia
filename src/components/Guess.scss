@@ -16,6 +16,13 @@
   color: $primary;
 }
 
+.timer {
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  color: $primary;
+}
+
 .guess-inputs {
   margin-top: 1rem;
   display: flex;
@@ -34,6 +41,19 @@
   column-gap: 1rem;
 }
 
-.button-guess {
+.buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.buttons .button {
   margin-top: 1rem;
+}
+
+.buttons .button.button-guess {
+  flex-grow: 1;
+}
+
+.buttons .button.button-aux {
+  flex-shrink: 1;
 }

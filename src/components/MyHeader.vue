@@ -2,6 +2,7 @@
   <header>
     <span>Versooo</span>
     <v-switch
+      class="switch"
       v-if="unlockUnlimited"
       v-model="endlessGame"
       label="Jogo infinito"
@@ -26,6 +27,7 @@ export default {
       localStorage.setItem("endlessgame", value);
       if (value) {
         localStorage.removeItem("hasGuessed");
+        localStorage.removeItem("previousTime");
       }
     },
   },

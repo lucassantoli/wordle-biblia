@@ -4,7 +4,12 @@
 
     <quote :verse="verse" @click="unlockUnlimited"></quote>
 
-    <guess :options="options" :haveAlreadyGuessed="haveAlreadyGuessed"></guess>
+    <guess
+      :daysAfter="daysAfter"
+      :options="options"
+      :previousGuess="previousGuess"
+      :previousTime="previousTime"
+    ></guess>
   </div>
 </template>
 
@@ -23,8 +28,10 @@ export default {
   components: { MyHeader, Quote, Guess },
 
   data: () => ({
+    daysAfter: null,
+    previousTime: null,
     timesClickedOnVerse: 0,
-    haveAlreadyGuessed: false,
+    previousGuess: false,
     hasUnlockedEndlessGame: false,
     bible,
     seedrandom,
@@ -58,6 +65,7 @@ export default {
     } else {
       index = Math.floor((new Date() - this.$initialDate) / (1000 * 3600 * 24));
     }
+    this.daysAfter = index;
 
     let rng = seedrandom(index);
 
@@ -70,27 +78,29 @@ export default {
       let randomIndex = Math.floor(rng() * 31104 + 1);
       let option = findVerse(randomIndex, this.bible, false);
 
-      let existsInOptions =
-        options.find((verse) => verse.index == option.index) == undefined;
+      let existsInOptions = options.find((verse) => verse.index == option.index) == undefined;
       if (existsInOptions) {
         options.push(option);
       }
     }
 
-    let previousGuess =
-      JSON.parse(localStorage.getItem("hasGuessed")) ?? undefined;
+    let previousGuess = JSON.parse(localStorage.getItem("hasGuessed")) ?? undefined;
     if (previousGuess != undefined) {
-      options.forEach((op) => {
-        if (op.index == previousGuess) {
-          op.selected = true;
-        } else {
-          op.setected = false;
-        }
-      });
+      let previousTime = JSON.parse(localStorage.getItem("previousTime")) ?? undefined;
+
+      if (previousTime != undefined && previousTime.daysAfter == this.daysAfter) {
+        this.previousTime = previousTime.getFormattedTime;
+        options.forEach((op) => {
+          op.selected = op.index == previousGuess;
+        });
+      } else {
+        localStorage.removeItem("hasGuessed");
+        localStorage.removeItem("previousTime");
+      }
     }
 
     this.options = shuffle(options, rng);
-    this.haveAlreadyGuessed = previousGuess != undefined;
+    this.previousGuess = previousGuess != undefined;
   },
 };
 </script>
