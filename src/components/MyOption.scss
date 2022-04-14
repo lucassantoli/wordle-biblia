@@ -33,3 +33,11 @@
 .my-option.disabled i {
   color: $textDisabled;
 }
+
+.my-option.right-answer.disabled:not(.selected) {
+  background-color: $success;
+  color: white;
+}
+.my-option.right-answer.disabled:not(.selected) i {
+  color: white;
+}

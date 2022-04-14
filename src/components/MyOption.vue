@@ -3,6 +3,7 @@
     :class="[
       'my-option',
       option.selected && 'selected',
+      option.isCorrect && 'right-answer',
       disabled && 'disabled',
     ]"
     @click="handleClick"

@@ -1,10 +1,10 @@
 <template>
   <div class="home">
-    <my-header></my-header>
+    <my-header :unlockUnlimited="hasUnlockedEndlessGame"></my-header>
 
-    <quote :verse="verse"></quote>
+    <quote :verse="verse" @click="unlockUnlimited"></quote>
 
-    <guess :options="options"></guess>
+    <guess :options="options" :haveAlreadyGuessed="haveAlreadyGuessed"></guess>
   </div>
 </template>
 
@@ -23,6 +23,9 @@ export default {
   components: { MyHeader, Quote, Guess },
 
   data: () => ({
+    timesClickedOnVerse: 0,
+    haveAlreadyGuessed: false,
+    hasUnlockedEndlessGame: false,
     bible,
     seedrandom,
     dayVerse,
@@ -31,10 +34,30 @@ export default {
     options: [],
   }),
 
+  methods: {
+    unlockUnlimited: function () {
+      this.timesClickedOnVerse++;
+      if (this.timesClickedOnVerse > 20) {
+        localStorage.setItem("unlockedendlessgame", true);
+        this.hasUnlockedEndlessGame = true;
+      }
+    },
+  },
+
   created() {
-    const index = Math.floor(
-      (new Date() - this.$initialDate) / (1000 * 3600 * 24)
-    );
+    try {
+      this.hasUnlockedEndlessGame =
+        JSON.parse(localStorage.getItem("unlockedendlessgame")) ?? false;
+    } catch (e) {
+      this.hasUnlockedEndlessGame = false;
+    }
+
+    let index = 0;
+    if (JSON.parse(localStorage.getItem("endlessgame")) ?? false) {
+      index = Math.floor(Math.random() * 31104 + 1);
+    } else {
+      index = Math.floor((new Date() - this.$initialDate) / (1000 * 3600 * 24));
+    }
 
     let rng = seedrandom(index);
 
@@ -54,7 +77,20 @@ export default {
       }
     }
 
+    let previousGuess =
+      JSON.parse(localStorage.getItem("hasGuessed")) ?? undefined;
+    if (previousGuess != undefined) {
+      options.forEach((op) => {
+        if (op.index == previousGuess) {
+          op.selected = true;
+        } else {
+          op.setected = false;
+        }
+      });
+    }
+
     this.options = shuffle(options, rng);
+    this.haveAlreadyGuessed = previousGuess != undefined;
   },
 };
 </script>

@@ -97,6 +97,15 @@ export default {
 
   props: {
     options: Array,
+    haveAlreadyGuessed: Boolean,
+  },
+
+  watch: {
+    haveAlreadyGuessed: function (value) {
+      if (value) {
+        this.handleGuess();
+      }
+    },
   },
 
   methods: {
@@ -119,6 +128,11 @@ export default {
       if (option != undefined) {
         this.hasGuessed = true;
         this.result = option.isCorrect;
+        let endlessGame =
+          JSON.parse(localStorage.getItem("endlessgame")) ?? false;
+        if (!endlessGame) {
+          localStorage.setItem("hasGuessed", option.index);
+        }
       }
     },
   },
@@ -143,6 +157,10 @@ export default {
         return "ERRADO";
       }
     },
+  },
+
+  created() {
+    if (this.haveAlreadyGuessed) this.handleGuess();
   },
 };
 </script>
