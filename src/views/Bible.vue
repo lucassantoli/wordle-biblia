@@ -138,6 +138,7 @@ export default {
 
   created() {
     let index = Math.floor((new Date() - this.$initialDate) / (1000 * 3600 * 24)) * 5;
+    index = index % 31104;
     this.daysAfter = index / 5;
 
     let rerenderGame = false;
@@ -157,8 +158,6 @@ export default {
     if (rerenderGame) {
       let rng = seedrandom(this.daysAfter);
 
-      this.index = this.dayVerse[index];
-
       for (let i = 0; i < 5; i++) {
         let game = {};
         let verse = findVerse(this.dayVerse[index + i], this.bible, true);
@@ -166,7 +165,7 @@ export default {
 
         let iterations = 0;
         while (options.length < 5 && iterations++ < 31104) {
-          let randomIndex = Math.floor(rng() * 31104 + 1);
+          let randomIndex = Math.floor(rng() * 31103 + 2);
           let option = findVerse(randomIndex, this.bible, false);
 
           let existsInOptions = options.find((verse) => verse.index == option.index) != undefined;

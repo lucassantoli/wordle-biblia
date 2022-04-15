@@ -58,7 +58,7 @@ export const findVerse = (index, bible, isCorrect) => {
     chapter: chapter.number,
     verse: index - acc,
     ref: capitalize(`${book.name} ${chapter.number}:${index - acc}`),
-    text: chapter.verses[index - acc],
+    text: chapter.verses[index - acc - 1],
     selected: false,
     isCorrect,
   };

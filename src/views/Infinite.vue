@@ -38,7 +38,7 @@ export default {
   }),
 
   created() {
-    let index = Math.floor(Math.random() * 31104 + 1);
+    let index = Math.floor(Math.random() * 31103 + 2);
     this.index = this.dayVerse[index];
 
     this.game.verse = findVerse(this.index, this.bible, true);
@@ -46,7 +46,7 @@ export default {
 
     let iterations = 0;
     while (options.length < 5 && iterations++ < 31104) {
-      let randomIndex = Math.floor(Math.random() * 31104 + 1);
+      let randomIndex = Math.floor(Math.random() * 31103 + 2);
       let option = findVerse(randomIndex, this.bible, false);
 
       let existsInOptions = options.find((verse) => verse.index == option.index) != undefined;

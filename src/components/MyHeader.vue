@@ -3,7 +3,8 @@
     <span>Versooo</span>
 
     <main-button class="button back-to-daily" @click="backToDaily" v-if="isEndless">
-      Jogo diário
+      <v-icon>mdi-arrow-left</v-icon>
+      <span>Jogo diário</span>
     </main-button>
 
     <div class="game-counter" v-else>

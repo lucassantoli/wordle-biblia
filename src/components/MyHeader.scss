@@ -58,6 +58,10 @@ header .main-button.back-to-daily {
   min-height: 40px;
 }
 
+header .main-button.back-to-daily .v-btn__content {
+  gap: 0.5rem;
+}
+
 @media (max-width: 375px) {
   header {
     flex-direction: column;
