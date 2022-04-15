@@ -9,7 +9,10 @@ export default {
   name: "MainButton",
 
   props: {
-    color: String,
+    color: {
+      type: String,
+      default: "primary",
+    },
   },
 
   methods: {

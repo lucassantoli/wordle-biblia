@@ -9,6 +9,11 @@ const routes = [
     name: "Bible",
     component: () => import("@/views/Bible.vue"),
   },
+  {
+    path: "/infinito",
+    name: "Infinite",
+    component: () => import("@/views/Infinite.vue"),
+  },
 ];
 
 const router = new VueRouter({

@@ -1,5 +1,5 @@
 <template>
-  <div class="quote" @click="handleClick">
+  <div class="quote">
     <v-img :src="quote" max-width="28px" class="quote-img"></v-img>
     <span v-text="verse.text"></span>
   </div>
@@ -14,12 +14,6 @@ export default {
   data: () => ({
     quote,
   }),
-
-  methods: {
-    handleClick: function (event) {
-      this.$emit("click", event);
-    },
-  },
 
   props: {
     verse: Object,

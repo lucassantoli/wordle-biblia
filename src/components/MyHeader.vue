@@ -1,43 +1,47 @@
 <template>
   <header>
     <span>Versooo</span>
-    <v-switch
-      class="switch"
-      v-if="unlockUnlimited"
-      v-model="endlessGame"
-      label="Jogo infinito"
-      hide-details
-    ></v-switch>
-    <div class="icon" v-if="false">
-      <v-icon color="primary">mdi-help</v-icon>
+    <main-button class="button back-to-daily" @click="backToDaily" v-if="isEndless">
+      Jogo diário
+    </main-button>
+    <div class="game-counter" v-else>
+      <span v-for="(game, index) in games" :key="index" :class="['unit', getColor(game, index)]">
+        {{ index + 1 }}
+      </span>
     </div>
   </header>
 </template>
 
 <script>
+import MainButton from "@/components/MainButton";
+
 export default {
   name: "MyHeader",
 
-  data: () => ({
-    endlessGame: false,
-  }),
-
-  watch: {
-    endlessGame: function (value) {
-      localStorage.setItem("endlessgame", value);
-      if (value) {
-        localStorage.removeItem("hasGuessed");
-        localStorage.removeItem("previousTime");
-      }
-    },
+  components: {
+    MainButton,
   },
 
   props: {
-    unlockUnlimited: Boolean,
+    currGame: Number,
+    games: Array,
+    isEndless: {
+      type: Boolean,
+      default: false,
+    },
   },
 
-  created() {
-    this.endlessGame = JSON.parse(localStorage.getItem("endlessgame") ?? false);
+  methods: {
+    getColor: function (game, index) {
+      if (index > this.currGame) return "off";
+      else if (game.correct == null) return "on";
+      else if (game.correct == true) return "green";
+      else return "red";
+    },
+
+    backToDaily: function () {
+      this.$router.push({ name: "Bible" });
+    },
   },
 };
 </script>

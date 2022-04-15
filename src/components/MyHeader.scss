@@ -6,8 +6,10 @@ header {
   font-size: 2rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   color: $primary;
   margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 header .icon {
@@ -23,4 +25,35 @@ header .switch {
   margin-top: 0;
   display: flex;
   align-items: center;
+}
+
+header .game-counter {
+  display: flex;
+  gap: 0.5rem;
+}
+
+header .game-counter .unit {
+  min-height: 2rem;
+  min-width: 2rem;
+  max-height: 2rem;
+  max-width: 2rem;
+  border-radius: 0.25rem;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: "PT Sans", sans-serif;
+  text-align: center;
+  line-height: 1.9rem;
+}
+
+header .game-counter .unit.on {
+  background-color: $primary;
+}
+
+header .game-counter .unit.off {
+  background-color: $secondary;
+}
+
+header .main-button.back-to-daily {
+  min-height: 40px;
 }

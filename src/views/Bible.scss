@@ -1,12 +1,14 @@
 .home {
-  padding: 1rem;
   max-width: 576px;
   height: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box; /* Firefox, other Gecko */
   box-sizing: border-box; /* Opera/IE 8+ */
+}
+
+.quote-container {
+  min-height: 11rem;
 }

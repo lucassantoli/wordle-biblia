@@ -1,8 +1,16 @@
 @import "@/global.scss";
 
+body {
+  background-color: $background;
+}
+
 #app {
   background-color: $background;
   font-family: "PT Sans", sans-serif;
+  padding: 1rem;
+  max-width: 576px;
+  height: 100%;
+  margin: 0 auto;
 }
 
 .v-snack__wrapper {

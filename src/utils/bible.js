@@ -10,16 +10,28 @@ export const shuffle = (array, rng) => {
     randomIndex = Math.floor(rng() * currentIndex);
     currentIndex--;
 
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex],
-      array[currentIndex],
-    ];
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+};
+
+export const shuffle2 = (array) => {
+  let currentIndex = array.length,
+    randomIndex;
+
+  while (currentIndex != 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
   }
 
   return array;
 };
 
 export const findVerse = (index, bible, isCorrect) => {
+  index--;
   let acc = 0;
   let bookIndex = 0;
   while (acc < index && bookIndex < bible.length) {
