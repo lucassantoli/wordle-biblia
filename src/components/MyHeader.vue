@@ -1,9 +1,11 @@
 <template>
   <header>
     <span>Versooo</span>
+
     <main-button class="button back-to-daily" @click="backToDaily" v-if="isEndless">
       Jogo diário
     </main-button>
+
     <div class="game-counter" v-else>
       <span v-for="(game, index) in games" :key="index" :class="['unit', getColor(game, index)]">
         {{ index + 1 }}

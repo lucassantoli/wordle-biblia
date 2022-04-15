@@ -144,7 +144,7 @@ export default {
     let previousGuess = JSON.parse(localStorage.getItem("previousGuess")) || undefined;
     if (previousGuess != undefined) {
       let countGuess = previousGuess.games.filter((game) => game.hasGuessed).length;
-      this.currGame = countGuess;
+      this.currGame = Math.min(countGuess, 4);
       this.games = previousGuess;
       this.countTime = previousGuess.time;
       if (previousGuess.daysAfter != this.daysAfter) {
