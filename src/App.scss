@@ -4,3 +4,12 @@
   background-color: $background;
   font-family: "PT Sans", sans-serif;
 }
+
+.v-snack__wrapper {
+  min-width: 100%;
+}
+
+.v-snack {
+  max-width: 576px;
+  padding: 1rem;
+}

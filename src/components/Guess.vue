@@ -186,10 +186,11 @@ export default {
         navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
           if (result.state == "granted" || result.state == "prompt") {
             navigator.clipboard.writeText(textToClipboard).then(
-              function () {
+              () => {
                 console.log("Copiado para a área de transferência");
+                this.$root.snackbar.show({ message: "Copiado para a área de transferência!" });
               },
-              function (e) {
+              (e) => {
                 console.log("Um erro ocorreu", e);
               }
             );
