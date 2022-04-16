@@ -7,7 +7,7 @@
       <span>Jogo diário</span>
     </main-button>
 
-    <div class="game-counter" v-else>
+    <div class="game-counter" v-else @click="() => unlockEndless++">
       <span v-for="(game, index) in games" :key="index" :class="['unit', getColor(game, index)]">
         {{ index + 1 }}
       </span>
@@ -24,6 +24,10 @@ export default {
   components: {
     MainButton,
   },
+
+  data: () => ({
+    unlockEndless: 0,
+  }),
 
   props: {
     currGame: Number,
@@ -44,6 +48,12 @@ export default {
 
     backToDaily: function () {
       this.$router.push({ name: "Bible" });
+    },
+  },
+
+  watch: {
+    unlockEndless: function (value) {
+      if (value >= 5) this.$router.push({ name: "Infinite" });
     },
   },
 };

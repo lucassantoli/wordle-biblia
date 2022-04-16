@@ -123,9 +123,13 @@ export default {
 
     let previousGuess = JSON.parse(localStorage.getItem("previousGuess")) || undefined;
     if (previousGuess != undefined) {
-      let countGuess = previousGuess.games.filter((game) => game.hasGuessed).length;
-      if (countGuess == 5) {
-        startInterval = false;
+      if (previousGuess.daysAfter != this.daysAfter) {
+        startInterval = true;
+      } else {
+        let countGuess = previousGuess.games.filter((game) => game.hasGuessed).length;
+        if (countGuess == 5) {
+          startInterval = false;
+        }
       }
     }
 
@@ -144,12 +148,13 @@ export default {
     let rerenderGame = false;
     let previousGuess = JSON.parse(localStorage.getItem("previousGuess")) || undefined;
     if (previousGuess != undefined) {
-      let countGuess = previousGuess.games.filter((game) => game.hasGuessed).length;
-      this.currGame = Math.min(countGuess, 4);
-      this.games = previousGuess;
-      this.countTime = previousGuess.time;
       if (previousGuess.daysAfter != this.daysAfter) {
         rerenderGame = true;
+      } else {
+        let countGuess = previousGuess.games.filter((game) => game.hasGuessed).length;
+        this.currGame = Math.min(countGuess, 4);
+        this.games = previousGuess;
+        this.countTime = previousGuess.time;
       }
     } else {
       rerenderGame = true;
