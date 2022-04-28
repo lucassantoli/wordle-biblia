@@ -9,6 +9,7 @@ fetch(process.env.BASE_URL + "config.json")
   .then((res) => res.json())
   .then((config) => {
     Vue.prototype.$initialDate = new Date(config.initialDate);
+    Vue.prototype.$hardmode = config.hardmode;
 
     new Vue({
       vuetify,

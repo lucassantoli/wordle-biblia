@@ -24,6 +24,26 @@
         ></guess>
       </div>
     </div>
+
+    <v-dialog v-model="dialog" max-width="400" persistent>
+      <div class="dialog">
+        <h2 class="dialog-title">Como funciona</h2>
+        <p>Todo dia você será apresentado a <strong>5 versos</strong> da bíblia.</p>
+        <p>
+          Você terá que adivinhar qual das referências listadas nas opções é a correta para o
+          versículo.
+        </p>
+        <p>
+          Após selecionar uma opção, clique em <strong>"ADIVINHAR"</strong> para descobrir o
+          resultado. Então toque na seta para avançar para o próximo verso.
+        </p>
+        <p>
+          Ao final, compartilhe seu resultado com amigos e veja quem pontuou mais em menos tempo!
+        </p>
+
+        <main-button @click="handleCloseDialog">Entendi</main-button>
+      </div>
+    </v-dialog>
   </div>
 </template>
 
@@ -31,21 +51,24 @@
 import Quote from "@/components/Quote";
 import Guess from "@/components/Guess";
 import MyHeader from "@/components/MyHeader";
+import MainButton from "@/components/MainButton";
 
 import { bible, dayVerse } from "@/data/bible.js";
-import { findVerse, shuffle } from "@/utils/bible.js";
+import { findVerse, shuffle, hardOptions } from "@/utils/bible.js";
 
 var seedrandom = require("seedrandom");
 
 export default {
-  name: "Home",
+  name: "Bible",
   components: {
     MyHeader,
+    MainButton,
     Quote,
     Guess,
   },
 
   data: () => ({
+    dialog: true,
     timerInterval: null,
     countTime: 0,
     daysAfter: null,
@@ -116,9 +139,20 @@ export default {
         console.log(e);
       }
     },
+
+    handleCloseDialog: function () {
+      localStorage.setItem("closeDialog", true);
+      this.dialog = false;
+      this.timerInterval = setInterval(() => {
+        this.countTime++;
+      }, 1000);
+    },
   },
 
   mounted() {
+    const closeDialog = localStorage.getItem("closeDialog") || false;
+    this.dialog = !closeDialog;
+
     let startInterval = true;
 
     let previousGuess = JSON.parse(localStorage.getItem("previousGuess")) || undefined;
@@ -133,7 +167,7 @@ export default {
       }
     }
 
-    if (startInterval) {
+    if (startInterval && closeDialog) {
       this.timerInterval = setInterval(() => {
         this.countTime++;
       }, 1000);
@@ -167,15 +201,20 @@ export default {
         let game = {};
         let verse = findVerse(this.dayVerse[index + i], this.bible, true);
         let options = [verse];
+        if (this.$hardmode) {
+          let rawOptions = hardOptions(verse, rng);
+          let newOptions = rawOptions.map((op) => findVerse(op, this.bible, false));
+          options = shuffle([...options, ...newOptions], rng);
+        } else {
+          let iterations = 0;
+          while (options.length < 5 && iterations++ < 31104) {
+            let randomIndex = Math.floor(rng() * 31103 + 2);
+            let option = findVerse(randomIndex, this.bible, false);
 
-        let iterations = 0;
-        while (options.length < 5 && iterations++ < 31104) {
-          let randomIndex = Math.floor(rng() * 31103 + 2);
-          let option = findVerse(randomIndex, this.bible, false);
-
-          let existsInOptions = options.find((verse) => verse.index == option.index) != undefined;
-          if (!existsInOptions) {
-            options.push(option);
+            let existsInOptions = options.find((verse) => verse.index == option.index) != undefined;
+            if (!existsInOptions) {
+              options.push(option);
+            }
           }
         }
 

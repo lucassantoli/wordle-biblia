@@ -22,6 +22,7 @@ export default {
 
   mounted() {
     this.isLoading = false;
+
     this.$root.snackbar = this.$refs.snackbar;
     let hasScrolled = JSON.parse(localStorage.getItem("hasScrolled"));
     if (hasScrolled == null) {

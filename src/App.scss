@@ -21,3 +21,17 @@ body {
   max-width: 576px;
   padding: 1rem;
 }
+
+.dialog {
+  background-color: $background;
+  padding: 2rem;
+}
+
+.dialog .dialog-title {
+  margin-bottom: 2rem;
+}
+
+.dialog .main-button {
+  margin-top: 2rem;
+  width: 100%;
+}
