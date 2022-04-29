@@ -64,8 +64,21 @@ export const findVerse = (index, bible, isCorrect) => {
   };
 };
 
-export const hardOptions = (verse, rng) => {
+const hardSingleOption = (book, rng, min, max, bible) => {
+  let index = Math.floor(rng() * min) + max;
+  let verse = findVerse(index, bible, false);
+
+  while (verse.book == book && rng() > 0.1) {
+    index = Math.floor(rng() * min) + max;
+    verse = findVerse(index, bible, false);
+  }
+
+  return verse;
+};
+
+export const hardOptions = (verse, rng, bible) => {
   const verseindex = verse.index;
+  const versebook = verse.book;
 
   const lenPentateuco = 5851;
   const lenHistoricos1 = 2867;
@@ -83,74 +96,74 @@ export const hardOptions = (verse, rng) => {
   if (verseindex <= 5851) {
     // pentateuco
     return [
-      Math.floor(rng() * lenPentateuco) + 0,
-      Math.floor(rng() * lenBiblia),
-      Math.floor(rng() * lenBiblia),
-      Math.floor(rng() * lenBiblia),
+      hardSingleOption(versebook, rng, lenPentateuco, 0, bible),
+      hardSingleOption(versebook, rng, lenBiblia, 0, bible),
+      hardSingleOption(versebook, rng, lenBiblia, 0, bible),
+      hardSingleOption(versebook, rng, lenBiblia, 0, bible),
     ];
   } else if (verseindex <= 8719) {
     // historicos 1
     return [
-      Math.floor(rng() * lenHistoricos1) + 5852,
-      Math.floor(rng() * lenHistoricos2) + 12020,
-      Math.floor(rng() * lenBiblia),
-      Math.floor(rng() * lenBiblia),
+      hardSingleOption(versebook, rng, lenHistoricos1, 5852, bible),
+      hardSingleOption(versebook, rng, lenHistoricos2, 12020, bible),
+      hardSingleOption(versebook, rng, lenBiblia, 0, bible),
+      hardSingleOption(versebook, rng, lenBiblia, 0, bible),
     ];
   } else if (verseindex <= 12019) {
     // reis & cronicas
     return [
-      Math.floor(rng() * lenAT) + 0,
-      Math.floor(rng() * lenAT) + 0,
-      Math.floor(rng() * lenBiblia),
-      Math.floor(rng() * lenBiblia),
+      hardSingleOption(versebook, rng, lenAT, 0, bible),
+      hardSingleOption(versebook, rng, lenAT, 0, bible),
+      hardSingleOption(versebook, rng, lenBiblia, 0, bible),
+      hardSingleOption(versebook, rng, lenBiblia, 0, bible),
     ];
   } else if (verseindex <= 12705) {
     // historicos 2
     return [
-      Math.floor(rng() * lenHistoricos1) + 5852,
-      Math.floor(rng() * lenHistoricos2) + 12020,
-      Math.floor(rng() * lenBiblia),
-      Math.floor(rng() * lenBiblia),
+      hardSingleOption(versebook, rng, lenHistoricos1, 5852, bible),
+      hardSingleOption(versebook, rng, lenHistoricos2, 12020, bible),
+      hardSingleOption(versebook, rng, lenBiblia, 0, bible),
+      hardSingleOption(versebook, rng, lenBiblia, 0, bible),
     ];
   } else if (verseindex <= 17657) {
     // poeticos
     return [
-      Math.floor(rng() * lenPoeticos) + 12706,
-      Math.floor(rng() * lenPoeticos) + 12706,
-      Math.floor(rng() * lenAT) + 0,
-      Math.floor(rng() * lenBiblia),
+      hardSingleOption(versebook, rng, lenPoeticos, 12706, bible),
+      hardSingleOption(versebook, rng, lenPoeticos, 12706, bible),
+      hardSingleOption(versebook, rng, lenAT, 0, bible),
+      hardSingleOption(versebook, rng, lenBiblia, 0, bible),
     ];
   } else if (verseindex <= 22097) {
     // profetas maiores
     return [
-      Math.floor(rng() * lenAT) + 0,
-      Math.floor(rng() * lenAT) + 0,
-      Math.floor(rng() * lenBiblia),
-      Math.floor(rng() * lenBiblia),
+      hardSingleOption(versebook, rng, lenAT, 0, bible),
+      hardSingleOption(versebook, rng, lenAT, 0, bible),
+      hardSingleOption(versebook, rng, lenBiblia, 0, bible),
+      hardSingleOption(versebook, rng, lenBiblia, 0, bible),
     ];
   } else if (verseindex <= 23147) {
     // profetas menores
     return [
-      Math.floor(rng() * lenAT) + 0,
-      Math.floor(rng() * lenAT) + 0,
-      Math.floor(rng() * lenBiblia),
-      Math.floor(rng() * lenBiblia),
+      hardSingleOption(versebook, rng, lenAT, 0, bible),
+      hardSingleOption(versebook, rng, lenAT, 0, bible),
+      hardSingleOption(versebook, rng, lenBiblia, 0, bible),
+      hardSingleOption(versebook, rng, lenBiblia, 0, bible),
     ];
   } else if (verseindex <= 27930) {
     // evangelhos
     return [
-      Math.floor(rng() * lenEvangelhos) + 23148,
-      Math.floor(rng() * lenNT) + 23148,
-      Math.floor(rng() * lenBiblia),
-      Math.floor(rng() * lenBiblia),
+      hardSingleOption(versebook, rng, lenEvangelhos, 23148, bible),
+      hardSingleOption(versebook, rng, lenNT, 23148, bible),
+      hardSingleOption(versebook, rng, lenBiblia, 0, bible),
+      hardSingleOption(versebook, rng, lenBiblia, 0, bible),
     ];
   } else {
     // cartas
     return [
-      Math.floor(rng() * lenCartas) + 27931,
-      Math.floor(rng() * lenCartas) + 27931,
-      Math.floor(rng() * lenBiblia),
-      Math.floor(rng() * lenBiblia),
+      hardSingleOption(versebook, rng, lenCartas, 27931, bible),
+      hardSingleOption(versebook, rng, lenCartas, 27931, bible),
+      hardSingleOption(versebook, rng, lenBiblia, 0, bible),
+      hardSingleOption(versebook, rng, lenBiblia, 0, bible),
     ];
   }
 };

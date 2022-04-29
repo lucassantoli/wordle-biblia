@@ -201,9 +201,9 @@ export default {
         let game = {};
         let verse = findVerse(this.dayVerse[index + i], this.bible, true);
         let options = [verse];
+
         if (this.$hardmode) {
-          let rawOptions = hardOptions(verse, rng);
-          let newOptions = rawOptions.map((op) => findVerse(op, this.bible, false));
+          let newOptions = hardOptions(verse, rng, bible);
           options = shuffle([...options, ...newOptions], rng);
         } else {
           let iterations = 0;
