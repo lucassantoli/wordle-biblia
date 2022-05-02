@@ -5,7 +5,7 @@ import router from "./router";
 
 Vue.config.productionTip = false;
 
-fetch(process.env.BASE_URL + "config.json")
+fetch(process.env.BASE_URL + "config-prod.json")
   .then((res) => res.json())
   .then((config) => {
     Vue.prototype.$initialDate = new Date(config.initialDate);
