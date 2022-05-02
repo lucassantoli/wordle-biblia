@@ -30,6 +30,22 @@ export const shuffle2 = (array) => {
   return array;
 };
 
+export const findVerseByReference = (indexbook, indexchapter, indexverse, bible) => {
+  let book = bible[indexbook];
+  let chapter = book.chapters[indexchapter];
+  let verse = chapter[indexverse];
+  let index = book.chapters[indexchapter].acc + indexverse;
+
+  return {
+    index: index + 1,
+    book: book.name,
+    chapter: chapter.number,
+    verse: indexverse + 1,
+    ref: capitalize(`${book.name} ${chapter.number}:${indexverse + 1}`),
+    text: verse,
+  };
+};
+
 export const findVerse = (index, bible, isCorrect) => {
   index--;
   let acc = 0;

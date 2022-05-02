@@ -10,6 +10,11 @@ const routes = [
     component: () => import("@/views/Bible.vue"),
   },
   {
+    path: "/proximidade",
+    name: "Proximity",
+    component: () => import("@/views/Proximity.vue"),
+  },
+  {
     path: "/infinito",
     name: "Infinite",
     component: () => import("@/views/Infinite.vue"),

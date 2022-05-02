@@ -5,18 +5,20 @@
   border-radius: 0.5rem;
   color: $primary;
 }
+.guess-table:first-child {
+  margin-bottom: 2rem;
+}
 
 .guess-table .header-guess,
-.guess-table .individual-guess,
-.guess-table .field-guess {
+.guess-table .individual-guess {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr 2fr;
 }
 
 .guess-table .header-column {
   font-family: "PT-Sans", sans-serif;
   font-weight: bold;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 12px;
   background-color: $secondary;
   color: $primary;
 }
@@ -24,10 +26,33 @@
 .guess-table .column {
   border: 2px solid $secondary;
   font-family: "PT-Sans", sans-serif;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 12px;
   color: primary;
+}
+
+.guess-table .column.proximity {
+  display: flex;
+  justify-content: space-between;
 }
 
 .guess-table .field-guess .proximity {
   background-color: $disabled;
+}
+
+.container-guess-table .button-guess {
+  flex-grow: 1;
+}
+
+.guess-table.table-inputs .header-guess,
+.guess-table.table-inputs .field-guess {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+}
+
+.field-guess fieldset {
+  border: none !important;
+}
+
+.buttons {
+  display: flex;
 }
