@@ -80,12 +80,12 @@ export const findVerse = (index, bible, isCorrect) => {
   };
 };
 
-const hardSingleOption = (book, rng, min, max, bible) => {
-  let index = Math.floor(rng() * min) + max;
+const hardSingleOption = (book, rng, max, min, bible) => {
+  let index = Math.floor(rng() * max + 2) + min;
   let verse = findVerse(index, bible, false);
 
   while (verse.book == book && rng() > 0.1) {
-    index = Math.floor(rng() * min) + max;
+    index = Math.floor(rng() * max + 2) + min;
     verse = findVerse(index, bible, false);
   }
 
