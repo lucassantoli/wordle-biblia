@@ -110,6 +110,46 @@ export default {
       localStorage.setItem("previousGuess", JSON.stringify(this.games));
     },
 
+    copyTextToClipboard: function (text) {
+      if (!navigator.clipboard) {
+        // Caso a API Clipboard não esteja disponível
+        return this.fallbackCopyTextToClipboard(text);
+      }
+
+      return navigator.clipboard.writeText(text)
+        .then(() => {
+          console.log('Texto copiado para a área de transferência');
+        })
+        .catch((err) => {
+          console.error('Falha ao copiar o texto:', err);
+        });
+    },
+
+    fallbackCopyTextToClipboard: function(text) {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+
+      // Colocar a área de texto fora do viewport para evitar interferências visuais
+      textArea.style.position = 'fixed';
+      textArea.style.top = '-9999px';
+      textArea.style.left = '-9999px';
+
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      try {
+        const successful = document.execCommand('copy');
+        if (successful) return Promise.resolve()
+        document.body.removeChild(textArea);
+        return Promise.reject();
+      } catch (err) {
+        document.body.removeChild(textArea);
+        return Promise.reject(err);
+      }
+
+    },
+
     handleShare: function () {
       try {
         let textToClipboard = `Versooo #${this.daysAfter}\n`;
@@ -122,21 +162,15 @@ export default {
         });
 
         textToClipboard += `\nConsegui em ${this.getFormattedTime}\n\nJogue em: https://lucassantoli.github.io/wordle-biblia/`;
-
-        navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
-          if (result.state == "granted" || result.state == "prompt") {
-            navigator.clipboard.writeText(textToClipboard).then(
-              () => {
-                this.$root.snackbar.show({ message: "Copiado para a área de transferência!" });
-              },
-              (e) => {
-                console.log("Um erro ocorreu", e);
-              }
-            );
-          }
-        });
+        this.copyTextToClipboard(textToClipboard)
+        .then(() => {
+          this.$root.snackbar.show({ message: "Copiado para a área de transferência!" });
+        })
+        .catch((e) => {
+          console.log("Um erro ocorreu", e);
+        })
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
     },
 
